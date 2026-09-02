@@ -1,0 +1,13 @@
+{
+  "name": "claude-video-generate",
+  "displayName": "Generate",
+  "version": "0.1.0",
+  "description": "Команда /generate: генерация изображений и видео через агрегаторы моделей (kie.ai, fal.ai, wavespeed) с маршрутизацией по цене, подтверждением стоимости, лимитом бюджета и логированием всех промптов локально.",
+  "author": {
+    "name": "Kirill",
+    "url": "https://github.com/llirikkcoder"
+  },
+  "repository": "https://github.com/llirikkcoder/claude-video-generate",
+  "keywords": ["image-generation", "video-generation", "fal", "kie", "wavespeed", "pay-as-you-go"],
+  "defaultEnabled": true
+}
