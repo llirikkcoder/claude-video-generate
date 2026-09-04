@@ -1,0 +1,15 @@
+{
+  "name": "claude-video-generate",
+  "description": "Плагин /generate: изображения и видео через kie.ai, fal.ai и wavespeed по модели pay-as-you-go",
+  "owner": {
+    "name": "Kirill",
+    "url": "https://github.com/llirikkcoder"
+  },
+  "plugins": [
+    {
+      "name": "claude-video-generate",
+      "source": "./",
+      "description": "Команда /generate: изображения и видео через kie.ai, fal.ai и wavespeed с маршрутизацией по цене, лимитом бюджета и локальным логом"
+    }
+  ]
+}
