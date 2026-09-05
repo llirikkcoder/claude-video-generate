@@ -88,14 +88,19 @@ class Fal:
         return r["request_id"]
 
     def poll(self, model, task_id):
-        st, r = _req("GET", f"https://queue.fal.run/{model}/requests/{task_id}/status", self.auth())
+        # Очередь fal живёт на уровне приложения (owner/app), а не эндпоинта:
+        # submit шлём на полный путь (fal-ai/nano-banana/edit), но status и
+        # результат — только по первым двум сегментам (fal-ai/nano-banana),
+        # иначе 405. Подтверждено на fal-ai/nano-banana/edit.
+        app = "/".join(model.split("/")[:2])
+        st, r = _req("GET", f"https://queue.fal.run/{app}/requests/{task_id}/status", self.auth())
         if st >= 400:
             return "failed", [], f"status {st}: {r}"
         s = r.get("status")
         if s in ("IN_QUEUE", "IN_PROGRESS"):
             return "pending", [], None
         # COMPLETED означает "закончено", не обязательно "успешно"
-        st2, res = _req("GET", f"https://queue.fal.run/{model}/requests/{task_id}", self.auth())
+        st2, res = _req("GET", f"https://queue.fal.run/{app}/requests/{task_id}", self.auth())
         if st2 >= 400 or res.get("detail"):
             return "failed", [], json.dumps(res, ensure_ascii=False)[:600]
         return "done", _harvest_urls(res), None
